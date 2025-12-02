@@ -1,93 +1,122 @@
-# Desafio5AWSCloudFormation
-Repositório do Bootcamp AWS da DIO parceria Santander - Nesse foi implementado um caso de uso imitando dados semparar e foi adicionado ao desafio a parte da implementação dos conveniados
-README.md — Laboratório: AWS CloudFormation
-Sumário
-Visão geral
+# 🚀 Projeto SemParar — Arquitetura Serverless + OSB + LocalStack
 
-Objetivos do laboratório
+Simulação completa do fluxo de processamento do **SemParar**, integrando **AWS Serverless**, **LocalStack** e **Oracle Service Bus (OSB)**.  
+Este repositório demonstra experiência prática em **arquitetura cloud**, **processos assíncronos**, **integrações corporativas** e construção de ambientes replicáveis para portfólio profissional.
 
-Arquitetura
+---
 
-Descrição do template CloudFormation
+## ⭐ Visão Geral do Projeto
 
-Passo a passo — deploy
+Este projeto simula dois fluxos reais utilizados no ecossistema SemParar:
 
-Como validar que deu certo
+### 🔹 1. Processamento de Passagens (Serverless AWS)
+Pipeline assíncrono baseado em:
+- Upload de JSON → **Amazon S3**
+- Evento do S3 aciona → **AWS Lambda**
+- Lambda publica mensagem → **Amazon SQS**
+- Lambda consumidor processa fila
+- Persistência dos dados no → **DynamoDB**
 
-Limpeza e custos
+👉 Simula o registro de passagens (pedágio, estacionamento, drive-thru etc.)
 
-1. Visão geral
-Este laboratório mostra a implementação do caso de uso do projeto SEM PARAR criado com AWS, claro que não será a cópia fiel do projeto, mas algumas funcionalidades referente ao mesmo.
+### 🔹 2. Cadastro de Conveniados (OSB + API Gateway)
+Integração corporativa envolvendo:
+- **Oracle Service Bus (Proxy + Pipeline + Business Service)**
+- Chamada ao **API Gateway (LocalStack)**
+- Lambda valida CNPJ no **DynamoDB**
+- Respostas de negócio:
+  - ✔ Conveniado já existe  
+  - ✔ Conveniado cadastrado com sucesso
 
-Cenário prático: Na parte de dados do SEMPARAR foi gerado um bucket e ao inserir dados, dados fake criado em um programa feito em python para a geração de registros Fake, nesse bucket o mesmo irá fazer o invoke de um lambda function que irá passar os registros ao SQS para consumir as mensagens e enviar para o outro lambda function e esse lambda fará a inserção dos registro no DynamoDB.
+👉 Simula integrações reais com parceiros da malha SemParar.
 
-2. Objetivos do laboratório
-Ao final teremos a seguinte capacidade:
+---
 
-Entender a estrutura de de um projeto, desde a crição de buckets e lambdas até o consumo de um SQS e gravação de registros no banco de dados NO SQL. E como um desafio a mais, será criado a comunicação de um ORACLE
-Business Service (OSB), fazendo o invoke de uma api gateway Localstack que chama um lambda e o mesmo insere registros na tabela Conveniados no banco DynamoDB.
+## 🏗️ Arquitetura da Solução
 
-Criar Bucket, Lambdas Functions, SQS, DynamoDB via Console
-Utilização do Docker Desktop para criacao de containers de Weblogic com o oracle suite para a criacao de um dominio soaosb e com isso a criação de mais 4 containers onde crio um administrador de servicos, gerenciados de serviços e um oracle business service, uma banco de dados oracle e a criacao de Projeto OSB no JDeveloper 12c
-
-
-3. Arquitetura
-Descrição sequencial: 
-
-Será criado um Bucket S3, dois Lambdas Function, SQS e tabela no DynamoDB. O Bucket será carregado com resgistros de clientes O Lambda será invocado e irá consumir um SQS que irá invocar um outro Lambda para gravar na tabela do banco do DynamoDB.
-
-
-Diagramas (simplificado):
-[Cliente --> [S3 Bucket] --> (CustomLambdaInvoker) -->[SQS] --> (CustomLambdaInvoker)  --> {grava registro DynamoDB}
-[Cliente] --> [OSB] --> [API GATEWAY] --> (CustomLambdaInvoker) --> {grava registro DynamoDB} tabela Conveniados
+### Fluxo SemParar
+Cliente → S3 → Lambda → SQS → Lambda Consumer → DynamoDB
 
 
-4. Descrição:
-seções tipicamente usadas:
-
-Parameters — variáveis passadas no deploy (ex.: Nome do stack, ambiente, prefixo de nomes).
-Mappings — mapeamentos
-Resources — definição dos recursos (S3 Bucket, Lambda Function, DynamoDB Table, IAM Roles/Policies, Event Notification, CloudWatch Log Group, SQS).
-Outputs — informações úteis (ex.: ARN do bucket, nome da tabela DynamoDB, URL do console).
-Recursos (exemplo mínimo)
-LambdaExecutionRole: Role com políticas mínimas — s3:GetObject, dynamodb:PutItem, logs:CreateLogStream, logs:PutLogEvents.
-ProcessorLambda: Função Lambda (Python 3.13).
-Containers Docker Desktop
-Realização de pull de imagens da oracle via https://container-registry.oracle.com/
-Instalação e utilização do JDeveloper 12c
-
-5. Passo a passo:
-— Para nao ocorrer cobrança utlizamos o localstack e o mesmo foi criado no container do docker desktop 
-via power shell criacao de recursos (Depois crie os Lambdas Functions, Criar o SQS, Crie as tabelas DynamoDB etc) da AWS → com awslocal.
+### Fluxo Conveniados
 
 
-6. Como validar que deu certo
-
-Verifique o bucket S3 criado (nome no output):
-Verifique se o arquivo json esta no Bucket S3
-Verifique a criação dos Lambdas Functions
-Verifique a criação do SQS
-Verifique a criação da API GATEWAY
-Verifique a criação das tabelas no DynamoDB
-Verificar se o banco oracle (soadb) esta no ar
-Verificar se ADM no Docker esta running
-Verificar se MS no Docker esta running
-Verificar se OSB no Docker esta running
-
-Faça o pull de imagens no site da oracle https://container-registry.oracle.com/ eu escolhi o Middlaware (opção suite pois essa imagem possui todos os recurso necessário para poder rodar o OSB) e Database. Assisti algumas aulas de docker. Li as instruções no proprio site da oracle (https://container-registry.oracle.com/), pois lá mostra o passo-a-passo.
-lembre-se de criar um network no docker para que o ADM, o Manager Service e o OSB fiquem ligados a mesma rede
-Lembrando que o dominio ideial para a utilização do OSB é o soaosb, pois será criado um banco de dados (soadb), ADM, Manager Service e um oracle Business Service, Todos precisam estar runinng.
-
-Criar um projeto OSB no JDeveloper 12c
-Realizar o deploy para que o console do Service Bus reconheça esse projeto
-Lembrando que o URI no projeto OSB deve ser com o mesmo api id criado no localstack (api gateway)
-
-Nesse Projeto OSB será criado:
-um BS com a uri http://host.docker.internal:4566/restapis/<api id>/dev/_user_request_/conveniados
-Proxy Service e nesse proxy service será criado um pipeline pois nesse pipeline sera setado a rota e nessa rota iremos associar com o BS criado
-Pelo proxy service vai ser enviado um registro dos dados (json) do cliente que irá pegar a rota setada no pipeline, a uri cadastrada no BS e irá fazer o invoke da api gateway localstack, essa api ira
-invocar o lambda que irá gravar o registro na tabela Conveniados DynamoDB
-Na pasta imagens consta o registro da aplicaçao do projeto.
- 
+OSB → API Gateway → Lambda → DynamoDB
 
 
+---
+
+## 🧰 Tecnologias Utilizadas
+
+### ☁️ AWS / Cloud
+- Amazon S3  
+- AWS Lambda  
+- Amazon SQS  
+- Amazon DynamoDB  
+- API Gateway  
+- LocalStack (emulação local de serviços AWS)
+
+### 🧩 Integração
+- Oracle Service Bus (OSB)  
+- JDeveloper 12c
+
+### 🧑‍💻 Desenvolvimento
+- Python 3  
+- Docker & Docker Compose  
+- Postman / cURL  
+- Arquitetura modular por serviços
+
+---
+
+## 📂 Estrutura do Repositório
+
+
+
+/semparar_repo
+├── lambdas/
+│ ├── uploader_handler/
+│ ├── sqs_consumer/
+│ └── conveniados_handler/
+├── osb/
+│ ├── proxy/
+│ ├── pipeline/
+│ └── business/
+├── infra/
+├── samples/
+│ └── sample.json
+└── README.md
+
+
+---
+
+## ▶️ Como Executar
+
+### 1. Subir o ambiente local
+```bash
+docker-compose up -d
+
+2. Enviar JSON para o fluxo SemParar
+awslocal s3 cp samples/sample.json s3://semparar-bucket/
+
+3. Testar o cadastro de conveniado
+curl -X POST http://localhost:4566/restapis/<api-id>/local/_user_request_/conveniados \
+  -d '{"cnpj":"12345678901234"}'
+
+## 🎯 Diferenciais do Projeto
+
+✔ Arquitetura corporativa real e replicável
+
+✔ Integração entre cloud moderna e sistema legado
+
+✔ Demonstração clara de domínio em AWS, OSB e processos assíncronos
+
+✔ Repositório organizado, limpo e preparado para recrutadores
+
+✔ Excelente conteúdo para portfólio profissional
+
+✔ Inclui fluxo completo ponta a ponta
+
+## 📌 Autor
+
+Criado com foco em boas práticas, documentação clara e apresentação profissional no GitHub.
+Perfeito para demonstrar conhecimento em Cloud, Serverless, Integrações e Infraestrutura Moderna.
