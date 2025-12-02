@@ -1,91 +1,89 @@
 ## 🚀 Simulação do Projeto SemParar
 
-Localstack + AWS Services + Oracle Service Bus + Docker
+### Localstack + AWS Services + Oracle Service Bus + Docker
 
-Este repositório apresenta uma simulação completa do fluxo SemParar, integrando arquitetura serverless, mensageria, APIs e middleware corporativo (OSB).
+Este repositório apresenta uma simulação do fluxo SemParar, integrando arquitetura serverless, mensageria, APIs e middleware corporativo (OSB).
 A solução foi dividida em duas linhas: Serverless e OSB + Localstack.
 
 ## 🏗️ Arquitetura Geral
 
-A solução é composta por duas estruturas independentes que se integram a sistemas distintos:
+  A solução é composta por duas estruturas independentes que se integram a sistemas distintos:
 
 ## 1️⃣ Linha Serverless (Localstack)
 
-Fluxo completo:
+### Fluxo completo:
 
-Upload de arquivo JSON no S3
+- Upload de arquivo JSON no S3
 
-O S3 invoca um Lambda
+- O S3 invoca um Lambda
 
-O Lambda envia o payload para o SQS
+- O Lambda envia o payload para o SQS
 
-Outro Lambda consome o SQS
+- Outro Lambda consome o SQS
 
-O registro é validado e gravado no DynamoDB (DadosSemParar)
+- O registro é validado e gravado no DynamoDB (DadosSemParar)
 
-Mensagens de retorno indicam se o registro já existia ou foi gravado com sucesso
+- Mensagens de retorno indicam se o registro já existia ou foi gravado com sucesso
 
-⚠️ Autenticação do DynamoDB ainda não implementada — será adicionada futuramente.
+### ⚠️ Autenticação do DynamoDB ainda não implementada — será adicionada futuramente.
 
 ## 2️⃣ Linha OSB + Localstack
 
-Fluxo de integração corporativa com Oracle Service Bus:
+### Fluxo de integração corporativa com Oracle Service Bus:
 
-Ambiente criado com Docker utilizando imagens oficiais do Oracle Registry
+- Ambiente criado com Docker utilizando imagens oficiais do Oracle Registry
 
-Containers criados:
+- Containers criados:
 
-Oracle Database
+- Oracle Database
 
-SOA Suite (Admin Server, Service Manager, OSB Server)
+- SOA Suite (Admin Server, Service Manager, OSB Server)
 
-Projeto criado no JDeveloper 12c:
+- Projeto criado no JDeveloper 12c:
 
-Aplicação: OSBConveniadosAPP
+- Aplicação: OSBConveniadosAPP
 
-Projeto: OSBConveniadosProject
+- Projeto: OSBConveniadosProject
 
-Elementos criados no OSB:
+- Elementos criados no OSB:
 
-Proxy Service: HTTP /conveniados
+- Proxy Service: HTTP /conveniados
 
-Pipeline: com router e rotas configuradas
+- Pipeline: com router e rotas configuradas
 
-Business Service: apontando para o API Gateway Localstack
+- Business Service: apontando para o API Gateway Localstack
 
-Fluxo final:
-OSB Console → API Gateway → Lambda → DynamoDB
+### Fluxo final:
+  OSB Console → API Gateway → Lambda → DynamoDB
 
 ## 🔧 Tecnologias Utilizadas
-AWS (Localstack)
+- AWS (Localstack)
 
-S3
+- S3
 
-Lambda
+- Lambda
 
-SQS
+- SQS
 
-API Gateway
+- API Gateway
 
-DynamoDB
+- DynamoDB
 
-Oracle
+- Oracle Service Bus (OSB)
 
-Oracle Service Bus (OSB)
+- Oracle Database
 
-Oracle Database
+- SOA Suite
 
-SOA Suite
+- JDeveloper 12c
 
-JDeveloper 12c
+- Outros
 
-Outros
+- Docker & Docker Networks
 
-Docker & Docker Networks
+- Arquitetura orientada a eventos
 
-Arquitetura orientada a eventos
-
-Mensageria assíncrona
+- Mensageria assíncrona
 
 ## 📁 Estrutura do Repositório
 semparar-simulation/
@@ -110,9 +108,9 @@ Enviar o JSON via console OSB para o proxy /conveniados.
 
 ## 📝 Autor
 
-Portfólio desenvolvido por **Roberta Tunes Rocha**, com foco em arquitetura serverless, integrações corporativas e soluções cloud simuladas localmente.
+  Portfólio desenvolvido por **Roberta Tunes Rocha**, com foco em arquitetura serverless, integrações corporativas e soluções cloud simuladas localmente.
 
 ## 🎥 Vídeo Explicativo
 
-O roteiro completo está em:
+### O roteiro completo está em:
 docs/roteiro-video.md
