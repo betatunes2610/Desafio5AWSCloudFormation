@@ -99,7 +99,7 @@ http://host.docker.internal:4566/restapis/d1pjgsef5h/dev/_user_request_/convenia
 
 1. OSB envia o JSON para o API Gateway.  
 2. O Gateway aciona um Lambda.  
-3. O Lambda verifica se o registro já existe na tabela DynamoDB.  
+3. O Lambda verifica se o registro já existe na tabela Conveniados no DynamoDB.  
 4. Caso exista → retorna **"Registro já consta na base de dados"**  
 5. Caso não exista → grava → retorna **"Registro gravado com sucesso"**
 
