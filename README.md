@@ -1,122 +1,118 @@
-# 🚀 Projeto SemParar — Arquitetura Serverless + OSB + LocalStack
+## 🚀 Simulação do Projeto SemParar
 
-Simulação completa do fluxo de processamento do **SemParar**, integrando **AWS Serverless**, **LocalStack** e **Oracle Service Bus (OSB)**.  
-Este repositório demonstra experiência prática em **arquitetura cloud**, **processos assíncronos**, **integrações corporativas** e construção de ambientes replicáveis para portfólio profissional.
+Localstack + AWS Services + Oracle Service Bus + Docker
 
----
+Este repositório apresenta uma simulação completa do fluxo SemParar, integrando arquitetura serverless, mensageria, APIs e middleware corporativo (OSB).
+A solução foi dividida em duas linhas: Serverless e OSB + Localstack.
 
-## ⭐ Visão Geral do Projeto
+## 🏗️ Arquitetura Geral
 
-Este projeto simula dois fluxos reais utilizados no ecossistema SemParar:
+A solução é composta por duas estruturas independentes que se integram a sistemas distintos:
 
-### 🔹 1. Processamento de Passagens (Serverless AWS)
-Pipeline assíncrono baseado em:
-- Upload de JSON → **Amazon S3**
-- Evento do S3 aciona → **AWS Lambda**
-- Lambda publica mensagem → **Amazon SQS**
-- Lambda consumidor processa fila
-- Persistência dos dados no → **DynamoDB**
+## 1️⃣ Linha Serverless (Localstack)
 
-👉 Simula o registro de passagens (pedágio, estacionamento, drive-thru etc.)
+Fluxo completo:
 
-### 🔹 2. Cadastro de Conveniados (OSB + API Gateway)
-Integração corporativa envolvendo:
-- **Oracle Service Bus (Proxy + Pipeline + Business Service)**
-- Chamada ao **API Gateway (LocalStack)**
-- Lambda valida CNPJ no **DynamoDB**
-- Respostas de negócio:
-  - ✔ Conveniado já existe  
-  - ✔ Conveniado cadastrado com sucesso
+Upload de arquivo JSON no S3
 
-👉 Simula integrações reais com parceiros da malha SemParar.
+O S3 invoca um Lambda
 
----
+O Lambda envia o payload para o SQS
 
-## 🏗️ Arquitetura da Solução
+Outro Lambda consome o SQS
 
-### Fluxo SemParar
-Cliente → S3 → Lambda → SQS → Lambda Consumer → DynamoDB
+O registro é validado e gravado no DynamoDB (DadosSemParar)
 
+Mensagens de retorno indicam se o registro já existia ou foi gravado com sucesso
 
-### Fluxo Conveniados
+⚠️ Autenticação do DynamoDB ainda não implementada — será adicionada futuramente.
 
+## 2️⃣ Linha OSB + Localstack
 
-OSB → API Gateway → Lambda → DynamoDB
+Fluxo de integração corporativa com Oracle Service Bus:
 
+Ambiente criado com Docker utilizando imagens oficiais do Oracle Registry
 
----
+Containers criados:
 
-## 🧰 Tecnologias Utilizadas
+Oracle Database
 
-### ☁️ AWS / Cloud
-- Amazon S3  
-- AWS Lambda  
-- Amazon SQS  
-- Amazon DynamoDB  
-- API Gateway  
-- LocalStack (emulação local de serviços AWS)
+SOA Suite (Admin Server, Service Manager, OSB Server)
 
-### 🧩 Integração
-- Oracle Service Bus (OSB)  
-- JDeveloper 12c
+Projeto criado no JDeveloper 12c:
 
-### 🧑‍💻 Desenvolvimento
-- Python 3  
-- Docker & Docker Compose  
-- Postman / cURL  
-- Arquitetura modular por serviços
+Aplicação: OSBConveniadosAPP
 
----
+Projeto: OSBConveniadosProject
 
-## 📂 Estrutura do Repositório
+Elementos criados no OSB:
 
+Proxy Service: HTTP /conveniados
 
+Pipeline: com router e rotas configuradas
 
-/semparar_repo
-├── lambdas/
-│ ├── uploader_handler/
-│ ├── sqs_consumer/
-│ └── conveniados_handler/
-├── osb/
-│ ├── proxy/
-│ ├── pipeline/
-│ └── business/
-├── infra/
-├── samples/
-│ └── sample.json
-└── README.md
+Business Service: apontando para o API Gateway Localstack
 
+Fluxo final:
+OSB Console → API Gateway → Lambda → DynamoDB
 
----
+## 🔧 Tecnologias Utilizadas
+AWS (Localstack)
+
+S3
+
+Lambda
+
+SQS
+
+API Gateway
+
+DynamoDB
+
+Oracle
+
+Oracle Service Bus (OSB)
+
+Oracle Database
+
+SOA Suite
+
+JDeveloper 12c
+
+Outros
+
+Docker & Docker Networks
+
+Arquitetura orientada a eventos
+
+Mensageria assíncrona
+
+## 📁 Estrutura do Repositório
+semparar-simulation/
+├── serverless-line/
+├── osb-line/
+├── docs/
+└── assets/
 
 ## ▶️ Como Executar
+1. Subir Localstack
+localstack start
 
-### 1. Subir o ambiente local
-```bash
+2. Subir containers Oracle (via docker-compose)
 docker-compose up -d
 
-2. Enviar JSON para o fluxo SemParar
-awslocal s3 cp samples/sample.json s3://semparar-bucket/
+3. Enviar arquivo JSON para o S3
+aws s3 cp sample-upload.json s3://semparar-bucket/
 
-3. Testar o cadastro de conveniado
-curl -X POST http://localhost:4566/restapis/<api-id>/local/_user_request_/conveniados \
-  -d '{"cnpj":"12345678901234"}'
+4. Consumir pelo OSB
 
-## 🎯 Diferenciais do Projeto
+Enviar o JSON via console OSB para o proxy /conveniados.
 
-✔ Arquitetura corporativa real e replicável
+## 📝 Autor
 
-✔ Integração entre cloud moderna e sistema legado
+Portfólio desenvolvido por **Roberta Tunes Rocha**, com foco em arquitetura serverless, integrações corporativas e soluções cloud simuladas localmente.
 
-✔ Demonstração clara de domínio em AWS, OSB e processos assíncronos
+## 🎥 Vídeo Explicativo
 
-✔ Repositório organizado, limpo e preparado para recrutadores
-
-✔ Excelente conteúdo para portfólio profissional
-
-✔ Inclui fluxo completo ponta a ponta
-
-## 📌 Autor
-
-Criado com foco em boas práticas, documentação clara e apresentação profissional no GitHub.
-Perfeito para demonstrar conhecimento em Cloud, Serverless, Integrações e Infraestrutura Moderna.
+O roteiro completo está em:
+docs/roteiro-video.md
