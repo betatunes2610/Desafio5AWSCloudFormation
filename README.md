@@ -123,13 +123,13 @@ http://host.docker.internal:4566/restapis/d1pjgsef5h/dev/_user_request_/convenia
 │
 ├── 📁 lambdas
 │   ├── lambda-s3-to-sqs
-│   │   ├── index.js
+│   │   ├── index.py
 │   │   └── package.json
 │   ├── lambda-sqs-to-dynamo
-│   │   ├── index.js
+│   │   ├── index.py
 │   │   └── package.json
 │   └── lambda-osb-gateway
-│       ├── index.js
+│       ├── index.py
 │       └── package.json
 │
 ├── 📁 osb
