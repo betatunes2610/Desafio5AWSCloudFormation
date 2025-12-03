@@ -5,7 +5,7 @@ Integração AWS (Localstack) + Oracle Service Bus (OSB) via Docker
 
 ## 📌 Visão Geral
 
-Este projeto simula duas linhas completas de integração utilizadas em arquiteturas corporativas semelhantes às do ecossistema **SemParar**, combinando:
+Este projeto simula duas linhas de integração utilizadas em arquiteturas corporativas semelhantes às do ecossistema **SemParar**, combinando:
 
 - **Serviços AWS simulados via Localstack**  
 - **Orquestração completa com eventos (S3 → Lambda → SQS → Lambda → DynamoDB)**  
