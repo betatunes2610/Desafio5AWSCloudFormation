@@ -37,10 +37,9 @@ O projeto é dividido em **duas linhas principais**:
 ### 🔹 Tecnologias
 
 - Localstack (S3, Lambda, SQS, DynamoDB)  
-- AWS SDK  
-- Modelagem NoSQL  
-- Event-driven architecture  
-
+- AWS  
+- NoSQL  
+  
 ---
 
 # 🟩 Linha 2 – OSB (Oracle Service Bus) → API Gateway → Lambda → DynamoDB
