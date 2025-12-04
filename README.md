@@ -110,11 +110,11 @@ http://host.docker.internal:4566/restapis/d1pjgsef5h/dev/_user_request_/convenia
 📦 semparar-simulacao
 ├── 📁 infra
 │   ├── docker
-│   │   ├── docker-compose-osb.yml
+│   │   ├── docker_container_osb_config.txt
 │   │   ├── network-config.md
 │   │   └── oracle-setup.md
 │   ├── localstack
-│   │   ├── docker-compose-localstack.yml
+│   │   ├── docker-localstack.txt
 │   │   ├── api-gateway-config.json
 │   │   ├── dynamodb-tables.json
 │   │   └── s3-bucket.json
@@ -122,16 +122,13 @@ http://host.docker.internal:4566/restapis/d1pjgsef5h/dev/_user_request_/convenia
 │
 ├── 📁 lambdas
 │   ├── lambda-s3-to-sqs
-│   │   ├── index.py
-│   │   └── package.json
+│   │   ├── GerenciaRegistrosDoSemParar.py
 │   ├── lambda-sqs-to-dynamo
-│   │   ├── index.py
-│   │   └── package.json
+│   │   ├── lambda_consumer.py
 │   └── lambda-osb-gateway
-│       ├── index.py
-│       └── package.json
+│       ├── lambda_conveniados.py
 │
-├── 📁 osb
+├── 📁 OSBConveniadosAPP
 │   ├── OSBConveniadosAPP.jws
 │   ├── ProxyServiceOSBConveniados.xml
 │   ├── pipelineOSBConveniados.pipeline
@@ -140,11 +137,11 @@ http://host.docker.internal:4566/restapis/d1pjgsef5h/dev/_user_request_/convenia
 │
 ├── 📁 docs
 │   ├── arquitetura.png
-│   ├── fluxograma.png
-│   ├── banner-linkedin.png
-│   └── video-roteiro.md
+│   └── video-roteiro.mp4
 │
-├── 📁 samples
-│   └── exemplo-payload.json
-│
+├── 📁 dados
+│   └── registrosSemPararFake.json
+│   └── registrosConveniados.json
+|   └── GerarDadosParaSemPararFake.py
+|   └── gerar_dados_conveniados.py
 └── README.md
