@@ -1,0 +1,58 @@
+- Criando ambiente OSB
+imagem database -> container-registry.oracle.com/database/enterprise:19.3.0.0
+imagem soasuite -> container-registry.oracle.com/middleware/soasuite:14.1.2.0-jdk17-ol9-241205
+
+-Comando para criar NETWORK - Habilita a conexão entre os containers - database - ADM - Managed Server - OSB
+    docker network create -d bridge SOAConveniados
+	
+OBSERVAÇÃO -> Para que possa utilizar as imagens dos containers da oracle deve ser feito o cadastro https://container-registry.oracle.com/ 
+no powershell digitar docker login container-registry.oracle.com e pegar a senha que consta na sua conta de uruário
+	
+- Criando o container database
+	-Criei o arquivo db.env.txt file com os dados abaixo:
+		ORACLE_SID=soadb
+		ORACLE_PDB=soapdb
+		ORACLE_PWD=Oradoc_db1
+		ENABLE_ARCHIVELOG=true
+	
+	-Rode o comando -> docker run -d --name soadb --network=SOAConveniados -p 1521:1521 -p 5500:5500 -v soadb_vol:/opt/oracle/oradata --env-file ./db.env.txt container-registry.oracle.com/database/enterprise:19.3.0.0
+
+- Criando os demais containers
+ADM 
+	-Criei o arquivo adminserver.env.list com os seguintes dados:
+		CONNECTION_STRING=soadb:1521/soapdb
+		RCUPREFIX=SOA1
+		DB_PASSWORD=Oradoc_db1
+		DB_SCHEMA_PASSWORD=Oradoc_db1
+		ADMIN_PASSWORD=welcome1
+		DOMAIN_NAME=soainfra
+		DOMAIN_TYPE=soaosb
+		ADMIN_HOST=172.18.0.3
+		ADMIN_PORT=7001
+		PERSISTENCE_STORE=jdbc
+		
+	-Rode o comando -> docker run --user root -it --name ConveniadosADM --network=SOAConveniados -p 7001:7001 -v soainfra:/u01/oracle/user_projects --env-file ./adminserver.env.list container-registry.oracle.com/middleware/soasuite:14.1.2.0-jdk17-ol9-241205
+	
+Managed Server	
+	- Criei o arquivo soa_server1 com os seguintes dados:
+		MANAGED_SERVER=soa_server1
+		DOMAIN_NAME=soainfra
+		ADMIN_HOST=172.18.0.3
+		ADMIN_PORT=7001
+		ADMIN_PASSWORD=welcome1
+		MANAGED_SERVER_CONTAINER=true
+		MANAGEDSERVER_PORT=7003
+
+	-Rode o comando -> docker run --user root -it --name ConveniadosMS --network=SOAConveniados -p 7003:7003  -v soainfra:/u01/oracle/user_projects --env-file ./soaserver1.env.list container-registry.oracle.com/middleware/soasuite:14.1.2.0-jdk17-ol9-241205 "/u01/oracle/container-scripts/startMS.sh"
+
+ORACLE SERVICE BUS
+	-Criei o arquivo osbserver1.env.list com os seguintes dados:
+		MANAGED_SERVER=osb_server1
+		DOMAIN_NAME=soainfra
+		ADMIN_HOST=172.18.0.3
+		ADMIN_PORT=7001
+		ADMIN_PASSWORD=welcome1
+		MANAGED_SERVER_CONTAINER=true
+		MANAGEDSERVER_PORT=8002
+		
+	-Rode o comando -> docker run --user root -it --name ConveniadosOSB --network=SOAConveniados -p 8002:8002 -v soainfra:/u01/oracle/user_projects --env-file ./osbserver1.env.list container-registry.oracle.com/middleware/soasuite:14.1.2.0-jdk17-ol9-241205 "/u01/oracle/container-scripts/startMS.sh"
