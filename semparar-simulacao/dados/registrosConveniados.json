@@ -1,0 +1,177 @@
+[
+    {
+        "id": "eff2e2f2f2c01132fe117af5",
+        "nome_fantasia": "Golden Fitness Academia",
+        "tipo": "drive-thru",
+        "cnpj": "90261115099617",
+        "status": "suspenso"
+    },
+    {
+        "id": "3abb8d4425844e260e8847c4",
+        "nome_fantasia": "Bella Vita Cafe",
+        "tipo": "pedagio",
+        "cnpj": "38833851328604",
+        "status": "suspenso"
+    },
+    {
+        "id": "8cbaaf73a8a7229aaa07e5ec",
+        "nome_fantasia": "Doce Encanto Confeitaria",
+        "tipo": "pedagio",
+        "cnpj": "64807055160807",
+        "status": "suspenso"
+    },
+    {
+        "id": "f473d5eb00a1e206a9e49e0e",
+        "nome_fantasia": "TopLine Distribuidora",
+        "tipo": "pedagio",
+        "cnpj": "53922222446825",
+        "status": "inativo"
+    },
+    {
+        "id": "54fb106fdd905c8b71b15507",
+        "nome_fantasia": "ValeTec Informatica",
+        "tipo": "estacionamento",
+        "cnpj": "93147484858656",
+        "status": "inativo"
+    },
+    {
+        "id": "85fbbdd724f7628a066049e2",
+        "nome_fantasia": "Prime Motors",
+        "tipo": "pedagio",
+        "cnpj": "35323691554602",
+        "status": "inativo"
+    },
+    {
+        "id": "664b15f76205d6fedb55bf1e",
+        "nome_fantasia": "EcoVerde Jardinagem",
+        "tipo": "pedagio",
+        "cnpj": "45914603465160",
+        "status": "ativo"
+    },
+    {
+        "id": "2fd959270a01b500a40ca4dc",
+        "nome_fantasia": "EcoVerde Jardinagem",
+        "tipo": "drive-thru",
+        "cnpj": "85759207728178",
+        "status": "suspenso"
+    },
+    {
+        "id": "08b84e5b70a5aa0b0fe1accf",
+        "nome_fantasia": "Solare Energia Renovavel",
+        "tipo": "drive-thru",
+        "cnpj": "21531977567396",
+        "status": "suspenso"
+    },
+    {
+        "id": "2680c499516d3f61e5360e51",
+        "nome_fantasia": "Golden Fitness Academia",
+        "tipo": "pedagio",
+        "cnpj": "75635747170440",
+        "status": "inativo"
+    },
+    {
+        "id": "dd543f979b8beac5e6a59b39",
+        "nome_fantasia": "ValeTec Informatica",
+        "tipo": "pedagio",
+        "cnpj": "69230454293599",
+        "status": "ativo"
+    },
+    {
+        "id": "34a5974d6389bc63fcff738d",
+        "nome_fantasia": "Floratta Boutique",
+        "tipo": "abastecimento",
+        "cnpj": "05247586898228",
+        "status": "ativo"
+    },
+    {
+        "id": "2b7c7a3556a1babbd9e8ee2b",
+        "nome_fantasia": "MundoPet Center",
+        "tipo": "abastecimento",
+        "cnpj": "64049250003151",
+        "status": "inativo"
+    },
+    {
+        "id": "4abf60334900e476376d9e9b",
+        "nome_fantasia": "Prime Motors",
+        "tipo": "abastecimento",
+        "cnpj": "60162160745820",
+        "status": "suspenso"
+    },
+    {
+        "id": "0a767c0fa6adcef344b77c9a",
+        "nome_fantasia": "Casa & Estilo Decoracoes",
+        "tipo": "pedagio",
+        "cnpj": "01571234061664",
+        "status": "suspenso"
+    },
+    {
+        "id": "f5041303863f87585b78dad6",
+        "nome_fantasia": "Prime Motors",
+        "tipo": "drive-thru",
+        "cnpj": "77050925410746",
+        "status": "suspenso"
+    },
+    {
+        "id": "144cd915ba94518f5d4782b8",
+        "nome_fantasia": "NuvemSoft Sistemas",
+        "tipo": "drive-thru",
+        "cnpj": "15480133218555",
+        "status": "suspenso"
+    },
+    {
+        "id": "35fe89370425deed9ef6e808",
+        "nome_fantasia": "VivaMais Saude",
+        "tipo": "abastecimento",
+        "cnpj": "34186506640401",
+        "status": "suspenso"
+    },
+    {
+        "id": "a0877b1b3f3fafd4e6340417",
+        "nome_fantasia": "Sabor de Casa Restaurante",
+        "tipo": "estacionamento",
+        "cnpj": "35552593621151",
+        "status": "suspenso"
+    },
+    {
+        "id": "97e59cdc7578e3492ffdd141",
+        "nome_fantasia": "Golden Fitness Academia",
+        "tipo": "drive-thru",
+        "cnpj": "10450325107679",
+        "status": "ativo"
+    },
+    {
+        "id": "1160a269845346dbcf98e6e1",
+        "nome_fantasia": "Casa & Estilo Decoracoes",
+        "tipo": "estacionamento",
+        "cnpj": "86999384045424",
+        "status": "ativo"
+    },
+    {
+        "id": "5b282a2e18a55708e30af7ee",
+        "nome_fantasia": "BlueWave Consultoria",
+        "tipo": "estacionamento",
+        "cnpj": "26184800163254",
+        "status": "ativo"
+    },
+    {
+        "id": "d423d63f7c34c9ce50bc552b",
+        "nome_fantasia": "BlueWave Consultoria",
+        "tipo": "estacionamento",
+        "cnpj": "86558357451299",
+        "status": "suspenso"
+    },
+    {
+        "id": "6d4c679423b489716ec0e76a",
+        "nome_fantasia": "InnovaWeb Agencia Digital",
+        "tipo": "pedagio",
+        "cnpj": "51729466567355",
+        "status": "ativo"
+    },
+    {
+        "id": "f57858829b6969df62498c29",
+        "nome_fantasia": "VivaMais Saude",
+        "tipo": "estacionamento",
+        "cnpj": "64909291673559",
+        "status": "ativo"
+    }
+]
